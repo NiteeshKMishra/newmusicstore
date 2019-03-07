@@ -1,3 +1,4 @@
+require('../config/config');
 const { passport } = require('./utils/passport');
 
 const express = require('express');
@@ -7,12 +8,11 @@ const session = require('express-session');
 const axios = require('axios');
 const path = require('path');
 const http = require('http');
-const cors = require('cors');
 const uuid = require('uuid/v4');
 const cookieParser = require('cookie-parser');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
 
 const { Users } = require('../models/users');
 
@@ -31,7 +31,6 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(cors());
 
 app.set('views', path.join(__dirname, '../views'));
 app.set('view engine', 'ejs');
