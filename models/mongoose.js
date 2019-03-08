@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+require('../config/config');
 
 const { ObjectID } = require('mongodb');
 

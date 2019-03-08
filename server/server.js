@@ -15,6 +15,7 @@ const app = express();
 const PORT = process.env.PORT;
 
 const { Users } = require('../models/users');
+const { Items } = require('../models/items');
 
 app.use(session({
   genid: (req) => {
@@ -124,7 +125,11 @@ io.on('connection', (socket) => {
 /** End Point Routes */
 
 app.get('/', (req, res) => {
-  res.render('index.ejs');
+  Items.find({}).then((movies) => {
+    res.render('index.ejs', { movies });
+  }).catch((err) => {
+    console.log(err);
+  })
 });
 
 app.post('/login', passport.authenticate('local', {

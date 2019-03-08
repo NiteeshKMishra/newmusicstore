@@ -28,12 +28,12 @@ var UserSchema = new mongoose.Schema({
   },
   cart: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'musicitems'
+    ref: 'Items'
   }]
 });
 
 
 
-var Users = mongoose.model('User', UserSchema);
+var Users = mongoose.model('Users', UserSchema);
 
 module.exports = { Users }
