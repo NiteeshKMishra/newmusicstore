@@ -28,7 +28,7 @@
 
 <div id="accordion">
   <div class="card">
-    <div class="card-header" id="music">
+    <div class="card-header" id="music" style="background-color:palegreen">
       <h5>
         <a href="#collapse1" data-parent="#accordion" data-toggle="collapse">
           Music Albums
@@ -37,9 +37,9 @@
     </div>
 
     <div id="collapse1" class="collapse show">
-      <div class="row card-body d-flex justify-content-center">
+      <div class="row card-body d-flex justify-content-center" style="background-color:dimgray">
         <% for(var item of movies){ if(item.category==='Music'){%>
-        <div class="card m-2" style="height:220px;width:180px;background-color: darkgreen">
+        <div class="card m-2" style="height:220px;width:180px;background-color: teal">
           <div class="card-body">
             <div class="d-flex flex-column">
               <img src="<%=item.imagepath%>" alt="<%=item.name%>" class="img-responsive">
@@ -56,7 +56,7 @@
   </div>
 
   <div class="card">
-    <div class="card-header" id="movies">
+    <div class="card-header" id="movies" style="background-color:palegreen">
       <h5>
         <a href="#collapse2" data-parent="#accordion" data-toggle="collapse">
           Movies
@@ -65,7 +65,7 @@
     </div>
 
     <div id="collapse2" class="collapse show">
-      <div class="row card-body d-flex justify-content-center">
+      <div class="row card-body d-flex justify-content-center" style="background-color:dimgray">
         <% for(var item of movies){ if(item.category==='Movies'){%>
         <div class="card m-2" style="height:220px;width:180px;background-color: darkgreen">
           <div class="card-body">
@@ -84,7 +84,7 @@
   </div>
 
   <div class="card">
-    <div class="card-header" id="accessories">
+    <div class="card-header" id="accessories" style="background-color:palegreen">
       <h5>
         <a href="#collapse3" data-parent="#accordion" data-toggle="collapse">
           Accessories
@@ -93,7 +93,7 @@
     </div>
 
     <div id="collapse3" class="collapse show">
-      <div class="row card-body d-flex justify-content-center">
+      <div class="row card-body d-flex justify-content-center" style="background-color:dimgray">
         <% for(var item of movies){ if(item.category==='Accessories'){%>
         <div class="card m-2" style="height:220px;width:180px;background-color: darkgrey">
           <div class="card-body">

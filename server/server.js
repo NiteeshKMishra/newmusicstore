@@ -140,12 +140,20 @@ app.post('/login', passport.authenticate('local', {
 
 app.get('/login', (req, res) => {
   globaluser = req.user;
-  res.render('user.ejs', { user: req.user });
+  Items.find({}).then((movies) => {
+    res.render('user.ejs', { user: req.user, movies });
+  }).catch((err) => {
+    console.log(err);
+  })
 });
 
 app.get('/logout', (req, res) => {
   req.session.destroy();
-  res.render('index.ejs');
+  Items.find({}).then((movies) => {
+    res.render('index.ejs', { movies });
+  }).catch((err) => {
+    console.log(err);
+  })
 });
 
 server.listen(PORT, () => {

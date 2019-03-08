@@ -1,10 +1,10 @@
 const { Items } = require('../models/items');
 
 var item = new Items({
-  name: 'Sholay(1975)',
-  price: 150,
-  category: 'Movies',
-  imagepath: '/images/sholay.jpg'
+  name: 'Saher(2000)',
+  price: 100,
+  category: 'Music',
+  imagepath: '/images/jagjit.jpg'
 });
 
 item.save().then((item) => {
