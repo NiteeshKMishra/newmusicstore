@@ -1,0 +1,61 @@
+<div class="row d-flex justify-content-center align-items-center flex-column"
+  style="height:100vh;width: 100vw;background-color:lightcyan">
+
+  <div class="mb-2">
+    <h4 class="display-5">Verify your Cart</h4>
+    <table class="table table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <th>Item</th>
+          <th>Quantity</th>
+          <th>Categoty</th>
+          <th>Price</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%var total=0%>
+        <%for(var item of items){%>
+        <%total=total+item.price*item.quantity%>
+        <tr>
+          <td><%=item.name%></td>
+          <th><%=item.quantity%></td>
+          <td><%=item.category%></td>
+          <td><%=item.price*item.quantity%></td>
+          <td><button class="btn btn-info btn-sm">Edit</button></td>
+        </tr>
+        <%}%>
+        </tbody>
+      </table>
+      <span class="font-weight-bold float-right p-2" style="border: 1px solid black">Your Total: <%=total%></span>
+  </div>
+
+  <div class="mt-4">
+    <h4 class="display-5">Enter your Communication Details</h4>
+    <div class="border border-info"></div>
+    <form action="/payment" method="GET" class="form">
+      <div class="form-group">
+        <label for="name">Enter Your Name</label>
+        <input type="text" name="name" class="form-control" placeholder="Enter your Name..." required>
+      </div>
+      <div class="form-group">
+        <label for="number">Enter Your Contact Number</label>
+        <input type="number" name="number" class="form-control" placeholder="Enter your number..." required>
+      </div>
+      <div class="form-group">
+        <label for="address">Enter Your Complete Address</label>
+        <input type="text" name="address" class="form-control" placeholder="Enter your address..." required>
+      </div>
+      <div class="form-group">
+        <label for="name">Enter Your ZipCode</label>
+        <input type="number" name="zipcode" class="form-control" placeholder="Enter your zipcode..." required>
+      </div>
+      <div>
+        <button class="btn btn-outline-primary" type="submit">Make Payment</button>
+        <button class="btn btn-outline-secondary" type="reset">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+</div>

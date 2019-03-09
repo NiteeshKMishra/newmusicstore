@@ -1,114 +1,153 @@
 <!--Promocode Section Start-->
-<section id="promocode" class="mt-2 mb-1">
-  <div class="progress" style="Height:30px;">
-    <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" style="width:100%;">
-      <div class="container-fluid">
-        <div class="row d-flex justify-content-center">
-          <p class="text-dark pt-3" style="font-size:18px;"><img src="/images/Promocode_Home.png" alt="promocode"
-              class="img-responsive">
-            <strong>10%
-              Off</strong> <i class="fas fa-exclamation"></i> on your First
-            Order<i class="fas fa-bolt"></i><i class="fas fa-bolt"></i></p>
-          <p class="d-none d-sm-block text-dark pt-3" style="font-size:18px;">Use Code <strong>FIRST10</strong><img
-              src="/images/HurryNow.png" alt="promocode"></p>
+<section style="width:100vw">
+  <section id="promocode" class="mt-2 mb-1">
+    <div class="progress" style="Height:30px;">
+      <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" style="width:100%;">
+        <div class="container-fluid">
+          <div class="row d-flex justify-content-center">
+            <p class="text-dark pt-3" style="font-size:18px;"><img src="/images/Promocode_Home.png" alt="promocode"
+                class="img-responsive">
+              <strong>10%
+                Off</strong> <i class="fas fa-exclamation"></i> on your First
+              Order<i class="fas fa-bolt"></i><i class="fas fa-bolt"></i></p>
+            <p class="d-none d-sm-block text-dark pt-3" style="font-size:18px;">Use Code <strong>FIRST10</strong><img
+                src="/images/HurryNow.png" alt="promocode"></p>
+          </div>
         </div>
       </div>
     </div>
+  </section>
+  <!--Promocode Section Ends-->
+  <div class="jumbotron text-center bg-info d-flex flex-column justify-content-center align-items-center"
+    style="height: 100vh">
+    <h4 class="display-4">Welcome to Musicx</h4>
+
+    <p class="d-none d-sm-block"><strong>Tired of shopping of useless music?</strong> Then we
+      have the perfect solution for
+      you! Just sit back and Relax and Order online from our wide variety of items. We will take care of the
+      rest. Explore our offerings..<a class="btn btn-sm btn-outline-primary" data-toggle="collapse"
+        data-target="#homeCollapse">Read
+        more..</a></p>
+    <p class="d-sm-none" style="font-size: 20px"><strong>Bored of listning to same music</strong> Then we have the
+      perfect solution for you!
+      Explore
+      our offerings <a class="btn btn-sm btn-outline-primary" data-toggle="collapse" data-target="#homeCollapse">Read
+        more..</a></p>
+    <div class="collapse" id="homeCollapse">
+      <div class="card">
+        <div class="card-body bg-info">
+          <div class="align-self-center">
+            <p class="dark-overlay font-weight-bold text-dark">All your music needs at one place. Shop for different
+              types of music related items from our website</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <button class="btn btn-primary d-none" id="showSuccessMsgButton" data-toggle="modal"
+      data-target="#successMsgModal">ADD</button>
+  </div>
+
+  <!--Shopping Cards-->
+
+  <div id="accordion">
+    <div class="card">
+      <div class="card-header" id="music" style="background-color:palegreen">
+        <h5>
+          <a href="#collapse1" data-parent="#accordion" data-toggle="collapse">
+            Music Albums
+          </a>
+          </h6>
+      </div>
+
+      <div id="collapse1" class="collapse show">
+        <div class="row card-body d-flex justify-content-center" id="musiccol">
+          <%for(var item of movies){ if(item.category==='Music'){%>
+          <div class="card m-2" style="height:220px;width:180px;background-color:skyblue">
+            <div class="card-body">
+              <div class="d-flex flex-column">
+                <img src="<%=item.imagepath%>" alt="<%=item.name%>" class="img-responsive">
+                <span style="font-weight: bold"><%=item.name%></span>
+                <span style="font-weight:bold" class="text-success">Price: <i
+                    class="fas fa-rupee-sign fa-0.5x"></i><%=item.price%></span>
+                <button class="btn btn-danger" id="<%=item._id%>" data="<%=JSON.stringify(item)%>">Add
+                  to Cart</button>
+              </div>
+            </div>
+          </div>
+          <%}}%>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" id="movies" style="background-color:palegreen">
+        <h5>
+          <a href="#collapse2" data-parent="#accordion" data-toggle="collapse">
+            Movies
+          </a>
+        </h5>
+      </div>
+
+      <div id="collapse2" class="collapse show">
+        <div class="row card-body d-flex justify-content-center" id="moviecol">
+          <%for(var item of movies){ if(item.category==='Movies'){%>
+          <div class="card m-2" style="height:220px;width:180px;background-color: green">
+            <div class="card-body">
+              <div class="d-flex flex-column">
+                <img src="<%=item.imagepath%>" alt="<%=item.name%>" class="img-responsive">
+                <span style="font-weight: bold"><%=item.name%></span>
+                <span style="font-weight:bold" class="text-success">Price: <i
+                    class="fas fa-rupee-sign fa-0.5x"></i><%=item.price%></span>
+                <button class="btn btn-danger" id="<%=item._id%>" data="<%=JSON.stringify(item)%>">Add
+                  to Cart</button>
+              </div>
+            </div>
+          </div>
+          <%}}%>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="card">
+      <div class="card-header" id="accessories" style="background-color:palegreen">
+        <h5>
+          <a href="#collapse3" data-parent="#accordion" data-toggle="collapse">
+            Accessories
+          </a>
+        </h5>
+      </div>
+
+      <div id="collapse3" class="collapse show">
+        <div class="row card-body d-flex justify-content-center" id="accesscol">
+          <%for(var item of movies){ if(item.category==='Accessories'){%>
+          <div class="card m-2" style="height:220px;width:180px;background-color:dimgrey">
+            <div class="card-body">
+              <div class="d-flex flex-column">
+                <img src="<%=item.imagepath%>" alt="<%=item.name%>" class="img-responsive">
+                <span style="font-weight: bold"><%=item.name%></span>
+                <span style="font-weight:bold" class="text-success">Price: <i
+                    class="fas fa-rupee-sign fa-0.5x"></i><%=item.price%></span>
+                <button class="btn btn-danger" id="<%=item._id%>" data="<%=JSON.stringify(item)%>">Add
+                  to Cart</button>
+              </div>
+            </div>
+          </div>
+          <%}}%>
+        </div>
+      </div>
+    </div>
+  </div>
   </div>
 </section>
-<!--Promocode Section Ends-->
-<div class="jumbotron text-center bg-info">
-  <h4 class="display-5">Welcome to Musicx</h4>
-  <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, debitis rerum! Nemo
-    exercitationem voluptatum quos doloribus pariatur asperiores tenetur amet commodi sunt illo numquam sapiente impedit
-    officiis saepe, a voluptatem!</p>
-</div>
 
-<!--Shopping Cards-->
-
-<div id="accordion">
-  <div class="card">
-    <div class="card-header" id="music" style="background-color:palegreen">
-      <h5>
-        <a href="#collapse1" data-parent="#accordion" data-toggle="collapse">
-          Music Albums
-        </a>
-        </h6>
-    </div>
-
-    <div id="collapse1" class="collapse show">
-      <div class="row card-body d-flex justify-content-center" style="background-color:dimgray">
-        <% for(var item of movies){ if(item.category==='Music'){%>
-        <div class="card m-2" style="height:220px;width:180px;background-color: teal">
-          <div class="card-body">
-            <div class="d-flex flex-column">
-              <img src="<%=item.imagepath%>" alt="<%=item.name%>" class="img-responsive">
-              <span style="font-weight: bold"><%=item.name%></span>
-              <span style="font-weight:bold" class="text-success">Price: <i
-                  class="fas fa-rupee-sign fa-0.5x"></i><%=item.price%></span>
-              <button class="btn btn-danger">Add to Cart</button>
-            </div>
-          </div>
-        </div>
-        <%}}%>
-      </div>
+<div class="modal" id="successMsgModal">
+  <div class="modal-dialog">
+    <div class="modal-content bg-success">
+      <span class="text-dark text-center font-weight-bold">Successfully added to cart.</span>
     </div>
   </div>
-
-  <div class="card">
-    <div class="card-header" id="movies" style="background-color:palegreen">
-      <h5>
-        <a href="#collapse2" data-parent="#accordion" data-toggle="collapse">
-          Movies
-        </a>
-      </h5>
-    </div>
-
-    <div id="collapse2" class="collapse show">
-      <div class="row card-body d-flex justify-content-center" style="background-color:dimgray">
-        <% for(var item of movies){ if(item.category==='Movies'){%>
-        <div class="card m-2" style="height:220px;width:180px;background-color: darkgreen">
-          <div class="card-body">
-            <div class="d-flex flex-column">
-              <img src="<%=item.imagepath%>" alt="<%=item.name%>" class="img-responsive">
-              <span style="font-weight: bold"><%=item.name%></span>
-              <span style="font-weight:bold" class="text-success">Price: <i
-                  class="fas fa-rupee-sign fa-0.5x"></i><%=item.price%></span>
-              <button class="btn btn-danger">Add to Cart</button>
-            </div>
-          </div>
-        </div>
-        <%}}%>
-      </div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-header" id="accessories" style="background-color:palegreen">
-      <h5>
-        <a href="#collapse3" data-parent="#accordion" data-toggle="collapse">
-          Accessories
-        </a>
-      </h5>
-    </div>
-
-    <div id="collapse3" class="collapse show">
-      <div class="row card-body d-flex justify-content-center" style="background-color:dimgray">
-        <% for(var item of movies){ if(item.category==='Accessories'){%>
-        <div class="card m-2" style="height:220px;width:180px;background-color: darkgrey">
-          <div class="card-body">
-            <div class="d-flex flex-column">
-              <img src="<%=item.imagepath%>" alt="<%=item.name%>" class="img-responsive">
-              <span style="font-weight: bold"><%=item.name%></span>
-              <span style="font-weight:bold" class="text-success">Price: <i
-                  class="fas fa-rupee-sign fa-0.5x"></i><%=item.price%></span>
-              <button class="btn btn-danger">Add to Cart</button>
-            </div>
-          </div>
-        </div>
-        <%}}%>
-      </div>
-    </div>
-  </div>
-</div>
 </div>

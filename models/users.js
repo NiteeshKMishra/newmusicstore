@@ -27,8 +27,14 @@ var UserSchema = new mongoose.Schema({
     minlength: 6
   },
   cart: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Items'
+    _id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Items'
+    },
+    quantity: {
+      type: Number,
+      default: 0
+    }
   }]
 });
 

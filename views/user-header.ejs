@@ -1,4 +1,4 @@
-<header>
+<header style="width:100vw">
   <nav class="navbar navbar-expand-md navbar-dark bg-primary">
     <div class="container">
       <i class="fas fa-file-audio fa-3x"></i>
@@ -11,26 +11,27 @@
       <div class="collapse navbar-collapse" id="navbarId">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a href="/logout" class="nav-link">Home</a>
+            <a href="/login" class="nav-link">Home</a>
           </li>
           <li class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
               aria-expanded="false">Go
               Shopping</a>
             <div class="dropdown-menu">
-              <a href="#" class="dropdown-item text-light bg-dark border">Fashion</a>
-              <a href="#" class="dropdown-item text-light bg-dark border">Electronics</a>
-              <a href="#" class="dropdown-item text-light bg-dark border">Groceries</a>
+              <a href="#music" class="dropdown-item text-info" style="border: 1px solid black">Music Albums</a>
+              <a href="#movies" class="dropdown-item text-info" style="border: 1px solid black">Movies</a>
+              <a href="#accessories" class="dropdown-item text-info" style="border: 1px solid black">Accessories</a>
             </div>
           </li>
           <li class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Welcome <%=user.username%></a>
             <div class="dropdown-menu">
+              <a href="/checkout" class="dropdown-item text-info text-center font-weight-bold bg-light"
+                style="border: 1px solid black">Your Cart<i class="fas fa-cart-plus"></i></a>
               <a href="#" class="dropdown-item text-info text-center font-weight-bold bg-light" data-toggle="modal"
-                data-target="#cngpassModal">Change Password</a>
-              <a href="#" class="dropdown-item text-info text-center font-weight-bold bg-light" id="clearhistory">Clear
-                History</a>
-              <a href="/logout" class="dropdown-item text-center text-dark font-weight-bold bg-light">Logout</a>
+                data-target="#cngpassModal" style="border: 1px solid black">Change Password</a>
+              <a href="/logout" class="dropdown-item text-center text-dark font-weight-bold bg-light"
+                style="border: 1px solid black">Logout</a>
             </div>
           </li>
         </ul>

@@ -1,88 +1,51 @@
 <!-- Navigation Bar -->
-<nav class="navbar navbar-expand-md navbar-dark bg-primary">
-  <div class="container">
-    <i class="fas fa-file-audio fa-3x"></i>
-    <a href="#" class="navbar-brand text-dark font-weight-bold mr-auto d-flex flex-column px-0">
-      <h5 class="ml-2">Musicx</h5>
-      <span class="blockquote-footer text-dark ml-3" style="font-size:10px">your online music library</span>
-    </a>
-    <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarId"><span
-        class="navbar-toggler-icon"></span></button>
-    <div class="collapse navbar-collapse" id="navbarId">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a href="#" class="nav-link">Home</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-            aria-expanded="false">Go
-            Shopping</a>
-          <div class="dropdown-menu">
-            <a href="#music-albums" class="dropdown-item text-info" style="border: 1px solid black">Music Albums</a>
-            <a href="#movies" class="dropdown-item text-info" style="border: 1px solid black">Movies</a>
-            <a href="#accessories" class="dropdown-item text-info" style="border: 1px solid black">Accessories</a>
-          </div>
-        </li>
-        <li class="nav-item dropdown">
-          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">My Account</a>
-          <div class="dropdown-menu">
-            <a href="#" class="dropdown-item text-info text-center font-weight-bold bg-light" data-toggle="modal"
-              data-target="#cartModal" style="border: 1px solid black">Your Cart<i class="fas fa-cart-plus"></i></a>
-            <a href="#" class="dropdown-item text-info text-center font-weight-bold bg-light" data-toggle="modal"
-              data-target="#signInModal" style="border: 1px solid black">Sign
-              In <i class="fas fa-user"></i></a>
-            <a href="#" class="dropdown-item text-center text-info font-weight-bold bg-light" data-toggle="modal"
-              data-target="#signUpModal" style="border: 1px solid black">Sign
-              Up <i class="fas fa-user-plus"></i></a>
-            <a href="#" class="dropdown-item text-center text-dark font-weight-bold bg-light" data-toggle="modal"
-              data-target="#forgotModal" style="border: 1px solid black">Forgot Credentials</a>
-          </div>
-        </li>
-        <li class="nav-item">
-          <a href="#" class="nav-link">Contact Us</a>
-        </li>
-      </ul>
+<section style="width:100vw">
+  <nav class="navbar navbar-expand-md navbar-dark bg-primary">
+    <div class="container">
+      <i class="fas fa-file-audio fa-3x"></i>
+      <a href="#" class="navbar-brand text-dark font-weight-bold mr-auto d-flex flex-column px-0">
+        <h5 class="ml-2">Musicx</h5>
+        <span class="blockquote-footer text-dark ml-3" style="font-size:10px">your online music library</span>
+      </a>
+      <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarId"><span
+          class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse" id="navbarId">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a href="/" class="nav-link">Home</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">Go
+              Shopping</a>
+            <div class="dropdown-menu">
+              <a href="#music" class="dropdown-item text-info" style="border: 1px solid black">Music Albums</a>
+              <a href="#movies" class="dropdown-item text-info" style="border: 1px solid black">Movies</a>
+              <a href="#accessories" class="dropdown-item text-info" style="border: 1px solid black">Accessories</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">My Account</a>
+            <div class="dropdown-menu">
+              <a href="#" class="dropdown-item text-info text-center font-weight-bold bg-light" data-toggle="modal"
+                data-target="#signInModal" style="border: 1px solid black" id="signin">Sign
+                In <i class="fas fa-user"></i></a>
+              <a href="#" class="dropdown-item text-center text-info font-weight-bold bg-light" data-toggle="modal"
+                data-target="#signUpModal" style="border: 1px solid black">Sign
+                Up <i class="fas fa-user-plus"></i></a>
+              <a href="#" class="dropdown-item text-center text-dark font-weight-bold bg-light" data-toggle="modal"
+                data-target="#forgotModal" style="border: 1px solid black">Forgot Credentials</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a href="/aboutus" class="nav-link">About Us</a>
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
+</section>
 <!-- Navigation Bar Ends -->
-
-<!--Your Cart Model-->
-<div class="modal" id="cartModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header bg-success">
-        <h3 class="modal-title ml-auto text-light font-weight-bold">Your Cart</h3>
-        <button class="close" data-dismiss="modal">&times;</button>
-      </div>
-      <div class="modal-body">
-        <form id="cartform">
-          <table class="table table-striped">
-            <thead class="thead-dark">
-              <tr>
-                <th>Item</th>
-                <th>Price</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Some item</td>
-                <td>700</td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="modal-footer">
-            <button class="btn btn-primary" type="submit">Sign In</button>
-            <button class="btn btn-secondary" type="reset">Cancel</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Cart Modal Ends-->
-
-
 <!-- Sign In Modal-->
 <div class="modal" id="signInModal">
   <div class="modal-dialog">

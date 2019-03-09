@@ -1,5 +1,6 @@
 require('../config/config');
 const { passport } = require('./utils/passport');
+const { sendMail } = require('./utils/sendmail');
 
 const express = require('express');
 const socketIO = require('socket.io');
@@ -57,11 +58,14 @@ io.on('connection', (socket) => {
   });
 
   socket.on('forgetcred', (data, callback) => {
+    console.log(data.email)
     Users.findOne({ email: data.email }).then((user) => {
       if (user) {
         sendMail(data.email, user.username, user.password).then((msg) => {
+          console.log(msg)
           callback(msg)
         }).catch((err) => {
+          console.log(err)
           callback(err);
         });
       }
@@ -88,32 +92,44 @@ io.on('connection', (socket) => {
   });
 
 
-  socket.on('clearhistory', (data, callback) => {
-    var historyUpdate;
-    var count = 0;
-    Users.findById(globaluser._id).then((user) => {
-      historyUpdate = user.history;
-      if (historyUpdate.length === 1) {
-        callback('Failed')
-        return
-      }
-      else {
-        tempHistory = historyUpdate
-        historyUpdate = tempHistory.pop()
-        newHistory = new Array();
-        newHistory.push(historyUpdate.toHexString())
-        Users.findByIdAndUpdate(globaluser._id, { $set: { history: newHistory } }).then((user, err) => {
-          tempHistory.forEach(_id => {
-            UserHistory.findByIdAndDelete(_id).then((his, err) => {
-              count = count + 1;
-              if (count === tempHistory.length) {
-                callback('done');
+  socket.on('addtocart', (data, callback) => {
+    if (!globaluser) {
+      callback('nouser')
+    }
+    else {
+      Users.findById(globaluser._id).then((user, err) => {
+        var flag = false;
+        if (user) {
+          for (var cart of user.cart) {
+            if (cart._id == data._id) {
+              cart.quantity = cart.quantity + 1
+              flag = true;
+            }
+          }
+          if (flag === false) {
+            Users.findByIdAndUpdate(globaluser._id, { $push: { cart: { _id: data._id, quantity: data.quantity } } }, { new: true }).then((users, err) => {
+              if (err) {
+                callback('error')
+              }
+              else {
+                callback('done')
               }
             })
-          });
-        })
-      }
-    })
+          }
+          else {
+            Users.findByIdAndUpdate(globaluser._id, { $set: { cart: user.cart } }, { new: true }).then((users, err) => {
+              if (err) {
+                callback('error')
+              }
+              else {
+                callback('done')
+              }
+            })
+          }
+        }
+      })
+
+    }
   });
 
   socket.on('disconnect', () => {
@@ -125,6 +141,7 @@ io.on('connection', (socket) => {
 /** End Point Routes */
 
 app.get('/', (req, res) => {
+  globaluser = req.user;
   Items.find({}).then((movies) => {
     res.render('index.ejs', { movies });
   }).catch((err) => {
@@ -147,6 +164,31 @@ app.get('/login', (req, res) => {
   })
 });
 
+app.get('/checkout', (req, res) => {
+  var itemArray = [];
+  var count = 0;
+  Users.findById(req.user._id).then((user, err) => {
+    if (user) {
+      user.cart.forEach(carts => {
+        Items.findById(carts._id).then((items, err) => {
+          if (items) {
+            var quan = carts.quantity
+            items["quantity"] = quan;
+            itemArray.push(items)
+            count = count + 1;
+          } else {
+            itemArray = []
+            count = count + 1;
+          }
+          if (count === user.cart.length) {
+            res.render('checkout.ejs', { user: req.user, items: itemArray })
+          }
+        })
+      });
+    }
+  });
+});
+
 app.get('/logout', (req, res) => {
   req.session.destroy();
   Items.find({}).then((movies) => {
@@ -155,6 +197,10 @@ app.get('/logout', (req, res) => {
     console.log(err);
   })
 });
+
+app.get('/aboutus', (req, res) => {
+  res.render('aboutus.ejs')
+})
 
 server.listen(PORT, () => {
   console.log(`Server is up at Port ${PORT}`);

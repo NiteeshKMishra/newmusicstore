@@ -92,6 +92,11 @@ jQuery('#signinform').on('submit', function (event) {
     jQuery('#loginusername-msg').text('Your Username must not contain special charcters or null');
     return;
   }
+  else if (username.length < 6) {
+    event.preventDefault();
+    jQuery('#loginusername-msg').text('Your Username must have been 6 characters long');
+    return;
+  }
   else if (password.length < 6) {
     event.preventDefault();
     jQuery('#loginpassword-msg').text('Your password must have been 6 charcters long');
@@ -106,8 +111,8 @@ jQuery('#signinform').on('reset', function (event) {
 //forgotCredentials
 jQuery('#forgotform').on('submit', function (event) {
   event.preventDefault();
-  var email = jQuery('[name=forgotemail]').val();
-  if (!emailRegex.test(String(email).toLowerCase())) {
+  var email = jQuery('[name=forgotemail]').val().toLowerCase();
+  if (!emailRegex.test(String(email))) {
     jQuery('#forgotemail-msg').text('Please Enter a valid Email');
     return;
   }
@@ -117,7 +122,7 @@ jQuery('#forgotform').on('submit', function (event) {
       jQuery('#forgotemail-msg').text('A Email has been sent with your Credentials.');
     }
     else {
-      jQuery('#forgotemail-msg').text('Provided Email Id does not Exist');
+      jQuery('#forgotemail-msg').text('Provided Email Id does not match with any records');
     }
   });
 });
@@ -126,7 +131,6 @@ jQuery('#forgotform').on('reset', function (event) {
   jQuery('#forgotemail-msg').text('');
 });
 
-/** Adding items to Cart */
 
 /** Change Password */
 jQuery('#changepasswordform').on('submit', function (event) {
@@ -141,6 +145,10 @@ jQuery('#changepasswordform').on('submit', function (event) {
   }
   else if (oldpassword.length < 6 || newpassword.length < 6) {
     jQuery('#pass-msg').text('Length of passwords must be 6 charcaters');
+    return;
+  }
+  else if (oldpassword === newpassword) {
+    jQuery('#pass-msg').text('Please Enter a different password than old one.');
     return;
   }
   socket.emit('changepassword', { email: email.toLowerCase(), oldpassword, newpassword }, function (message) {
@@ -168,19 +176,97 @@ jQuery('#changepasswordform').on('reset', function (event) {
   jQuery('#final-msg').text('');
 });
 
-jQuery('#clearhistory').on('click', function (event) {
-  event.preventDefault();
-  socket.emit('clearhistory', {}, function (message) {
-    if (message === 'done') {
-      alert('Your History has been cleared')
-      window.location.reload();
-    }
-    else if (message === 'Failed') {
-      alert('Your History must contain atleast 1 item')
-    }
-  })
-});
+/**Adding to Cart */
 
+/**Movies */
+var movies = jQuery('#moviecol').children('div').children('div').children('div').children('button');
+var movieIds = [];
+for (i = 0; i < movies.length; i++) {
+  movieIds.push('#' + movies[i].getAttribute('id'))
+}
+for (j = 0; j < movieIds.length; j++) {
+  jQuery(movieIds[j]).on('click', function (event) {
+    event.preventDefault();
+    var data = JSON.parse(this.getAttribute('data'));
+    data.quantity = 1
+    socket.emit('addtocart', data, function (message) {
+      if (message === 'nouser') {
+        jQuery('#signin').click();
+      }
+      else if (message === 'done') {
+        jQuery('#showSuccessMsgButton').click();
+        setTimeout(function () {
+          jQuery('#showSuccessMsgButton').click();
+        }, 2000);
+      }
+      else {
+        alert('Something Went wrong. Please try after sometime');
+      }
+    });
+  });
+}
+
+/**Movies End */
+
+/**Music */
+var music = jQuery('#musiccol').children('div').children('div').children('div').children('button');
+var musicIds = [];
+for (i = 0; i < music.length; i++) {
+  musicIds.push('#' + music[i].getAttribute('id'))
+}
+for (j = 0; j < musicIds.length; j++) {
+  jQuery(musicIds[j]).on('click', function (event) {
+    event.preventDefault();
+    var data = JSON.parse(this.getAttribute('data'));
+    data.quantity = 1
+    socket.emit('addtocart', data, function (message) {
+      if (message === 'nouser') {
+        jQuery('#signin').click();
+      }
+      else if (message === 'done') {
+        jQuery('#showSuccessMsgButton').click();
+        setTimeout(function () {
+          jQuery('#showSuccessMsgButton').click();
+        }, 2000);
+      }
+      else {
+        alert('Something Went wrong. Please try after sometime');
+      }
+    });
+  });
+}
+
+/**Music End */
+
+/**Access */
+var access = jQuery('#accesscol').children('div').children('div').children('div').children('button');
+var accessIds = [];
+for (i = 0; i < access.length; i++) {
+  accessIds.push('#' + access[i].getAttribute('id'))
+}
+for (j = 0; j < accessIds.length; j++) {
+  jQuery(accessIds[j]).on('click', function (event) {
+    event.preventDefault();
+    var data = JSON.parse(this.getAttribute('data'));
+    data.quantity = 1
+    socket.emit('addtocart', data, function (message) {
+      if (message === 'nouser') {
+        jQuery('#signin').click();
+      }
+      else if (message === 'done') {
+        jQuery('#showSuccessMsgButton').click();
+        setTimeout(function () {
+          jQuery('#showSuccessMsgButton').click();
+        }, 2000);
+      }
+      else {
+        alert('Something Went wrong. Please try after sometime');
+      }
+    });
+  });
+}
+
+/**Access End */
 
 socket.on('disconnect', () => {
 });
