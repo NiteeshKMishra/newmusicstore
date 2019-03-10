@@ -58,14 +58,11 @@ io.on('connection', (socket) => {
   });
 
   socket.on('forgetcred', (data, callback) => {
-    console.log(data.email)
     Users.findOne({ email: data.email }).then((user) => {
       if (user) {
         sendMail(data.email, user.username, user.password).then((msg) => {
-          console.log(msg)
           callback(msg)
         }).catch((err) => {
-          console.log(err)
           callback(err);
         });
       }
@@ -145,7 +142,6 @@ app.get('/', (req, res) => {
   Items.find({}).then((movies) => {
     res.render('index.ejs', { movies });
   }).catch((err) => {
-    console.log(err);
   })
 });
 
@@ -160,7 +156,6 @@ app.get('/login', (req, res) => {
   Items.find({}).then((movies) => {
     res.render('user.ejs', { user: req.user, movies });
   }).catch((err) => {
-    console.log(err);
   })
 });
 
@@ -194,12 +189,15 @@ app.get('/logout', (req, res) => {
   Items.find({}).then((movies) => {
     res.render('index.ejs', { movies });
   }).catch((err) => {
-    console.log(err);
   })
 });
 
 app.get('/aboutus', (req, res) => {
   res.render('aboutus.ejs')
+})
+
+app.get('/payment', (req, res) => {
+  res.render('payment.ejs', { user: req.user });
 })
 
 server.listen(PORT, () => {

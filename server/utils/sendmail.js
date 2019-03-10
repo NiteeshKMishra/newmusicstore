@@ -19,12 +19,16 @@ function sendMail(rec, username, password) {
       text: `Dear ${username},
 
       Your credentials has been successfully retrieved. Your credentials are
+
       UserName: ${username}
       Password:  ${password}
 
 
-      
-      
+      Please click on the below url to go to Musix:
+
+      ${'https://newmusicstore.herokuapp.com/'}
+
+
       Thank You,
       Musix Team
      `
