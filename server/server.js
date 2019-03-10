@@ -38,7 +38,7 @@ app.set('views', path.join(__dirname, '../views'));
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
-
+var usercartdata;
 /** Socket IO configuration */
 
 var server = http.createServer(app);
@@ -129,6 +129,51 @@ io.on('connection', (socket) => {
     }
   });
 
+  socket.on('deletefromcart', (data, callback) => {
+    if (!globaluser) {
+      callback('nouser')
+    }
+    else {
+      Users.findById(globaluser._id).then((user, err) => {
+        var flag = false;
+        if (user) {
+          for (var cart of user.cart) {
+            if (cart._id == data._id) {
+              cart.quantity = cart.quantity - 1
+              if (cart.quantity === 0)
+                flag = true;
+            }
+          }
+          if (flag === true) {
+            Users.findByIdAndUpdate(globaluser._id, { $pull: { cart: { _id: data._id, quantity: 1 } } }, { new: true }).then((users, err) => {
+              if (err) {
+                callback('error')
+              }
+              else {
+                callback('done')
+              }
+            })
+          }
+          else {
+            Users.findByIdAndUpdate(globaluser._id, { $set: { cart: user.cart } }, { new: true }).then((users, err) => {
+              if (err) {
+                callback('error')
+              }
+              else {
+                callback('done')
+              }
+            })
+          }
+        }
+      })
+
+    }
+  });
+
+  socket.on('addressadded', (data) => {
+    usercartdata = data;
+  })
+
   socket.on('disconnect', () => {
     console.log('Client Disconnected')
   });
@@ -197,7 +242,7 @@ app.get('/aboutus', (req, res) => {
 })
 
 app.get('/payment', (req, res) => {
-  res.render('payment.ejs', { user: req.user });
+  res.render('payment.ejs', { user: req.user, data: usercartdata });
 })
 
 server.listen(PORT, () => {

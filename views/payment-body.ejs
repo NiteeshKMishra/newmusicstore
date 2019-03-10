@@ -1,23 +1,30 @@
-<div class="row jumbotron d-flex justify-content-center align-items-center flex-column"
-  style="height:100vh;width:auto;background-color:lightcyan">
-  <div class="d-flex flex-column justify-content-center" style="border: 1px solid black">
+<div class="row jumbotron justify-content-center flex-column"
+  style="height:130vh;width:inherit;background-color:lightseagreen">
+  <div class="m-auto d-flex flex-column justify-content-center" style="border: 1px dashed greenyellow">
     <h5 class="m-auto">Your Order Details</h5>
     <div class="m-auto">
-      <span class="mr-3 font-weight-bold">Your Total</span><input type="text" class="d-inline"></input>
+      <span class="mt-1 text-center font-weight-bold">Cart Total: <span id="totalpay"><%=data.total%></span></span>
     </div>
-    <div class="mt-3 text-center mr-3">
+    <div class="mt-1 text-center mr-3">
       <label for="text">Have a Promocode</label>
-      <input type="text" class="d-inline"><button class="btn btn-success btn-sm mb-1">Apply</button>
+      <input type="text" name="promocode" class="d-inline"><button type="submit" class="btn btn-success btn-sm mb-1"
+        onclick="promocode()">Apply</button>
+      <div>
+        <span id="promoerr" class="m-auto"></span>
+      </div>
+
     </div>
   </div>
-  <div class="m-auto" style="border: 1px solid black">
+  <div class="m-auto" style="border: 1px dashed greenyellow">
     <h5 class="text-center">Your Address</h5>
-    <textarea name="address" id="addressarea" cols="50" rows="4" class="form-control"
-      disabled>djfkdnjkxnxknmnjncnxddkjnvbjncbnfjdkcnbkj</textarea>
-    <span><button class="btn btn-primary">Change</button></span>
-    <span><button class="btn btn-success d-none">Save</button></span>
+    <textarea name="addressarea" cols="50" rows="4" class="form-control" id="addresstext"
+      disabled><%=data.completeAddress%></textarea>
+    <span class="float-right"><button class="btn btn-primary" id="changeaddress"
+        onclick="changeaddress()">Change</button></span>
+    <span class="float-right"><button class="btn btn-success d-none" onclick="saveaddress()"
+        id="saveaddress">Save</button></span>
   </div>
-  <div>
+  <div class="m-auto" style="border: 1px dashed greenyellow">
     <h5>Choose your Payment Method</h5>
     <div id="accordion">
       <div class="card">

@@ -1,3 +1,4 @@
+
 var socket = io();
 
 function validateMessage(message) {
@@ -176,6 +177,48 @@ jQuery('#changepasswordform').on('reset', function (event) {
   jQuery('#final-msg').text('');
 });
 
+//Communcation Address
+
+jQuery('#communicationform').on('submit', function (event) {
+  event.preventDefault();
+  name = jQuery('[name=name]').val();
+  number = jQuery('[name=number]').val();
+  address = jQuery('[name=address]').val();
+  zipcode = jQuery('[name=zipcode]').val();
+
+  total = jQuery('[name=carttotal]').text();
+
+  completeAddress = ` ${name},
+  ${address}
+  Pincode: ${zipcode}
+  Contact Number: ${number}
+    `
+  socket.emit('addressadded', { completeAddress, total });
+  window.location.href = '/payment'
+});
+
+//deletion of items
+var ditems = jQuery('[name=deletebutton]').attr('data');
+ditems = JSON.parse(ditems);
+for (i = 0; i < ditems.length; i++) {
+  jQuery('#' + ditems[i]._id).on('click', function (event) {
+    event.preventDefault();
+    var _id = ditems[i]._id;
+    socket.emit('deletefromcart', { _id }, function (message) {
+      if (message === 'done') {
+        jQuery('#showSuccessMsgButton').click();
+        setTimeout(function () {
+          jQuery('#showSuccessMsgButton').click();
+        }, 2000);
+        window.location.reload();
+      }
+      else {
+        alert('Something went wrong. Please try after sometime');
+      }
+    });
+  })
+}
+
 /**Adding to Cart */
 
 /**Movies */
@@ -267,6 +310,59 @@ for (j = 0; j < accessIds.length; j++) {
 }
 
 /**Access End */
+
+function changeaddress() {
+  jQuery('#addresstext').removeAttr('disabled')
+  jQuery('#changeaddress').addClass('d-none');
+  jQuery('#saveaddress').removeClass('d-none');
+}
+function saveaddress() {
+  jQuery('#addresstext').attr('disabled', 'disabled')
+  jQuery('#changeaddress').removeClass('d-none');
+  jQuery('#saveaddress').addClass('d-none');
+}
+
+/** Promocode Section */
+var count = 0;
+function promocode() {
+  promo = jQuery('[name=promocode]').val();
+  orderTotal = jQuery('#totalpay').text();
+  if (promo === '') {
+    jQuery('#promoerr').addClass('text-danger');
+    jQuery('#promoerr').text('Please Enter a Promocode First')
+    setTimeout(function () {
+      jQuery('#promoerr').removeClass('text-danger');
+      jQuery('#promoerr').text('')
+    }, 3000);
+  }
+  else if (count === 1) {
+    jQuery('#promoerr').addClass('text-danger');
+    jQuery('#promoerr').text('you have already used this promocode')
+    setTimeout(function () {
+      jQuery('#promoerr').removeClass('text-danger');
+      jQuery('#promoerr').text('')
+    }, 3000);
+  }
+  else if (promo === 'FIRST10') {
+    count = 1;
+    total = parseInt(orderTotal, 10);
+    total = total - (total * 0.10);
+    jQuery('#promoerr').addClass('text-success');
+    jQuery('#promoerr').text('Promocode Successfully Applied');
+    jQuery('#totalpay').text(total);
+    setTimeout(function () {
+      jQuery('#promoerr').removeClass('text-success');
+      jQuery('#promoerr').text('')
+    }, 3000);
+  } else {
+    jQuery('#promoerr').addClass('text-danger');
+    jQuery('#promoerr').text('Please Enter a valid promocode')
+    setTimeout(function () {
+      jQuery('#promoerr').removeClass('text-danger');
+      jQuery('#promoerr').text('')
+    }, 3000);
+  }
+}
 
 socket.on('disconnect', () => {
 });
