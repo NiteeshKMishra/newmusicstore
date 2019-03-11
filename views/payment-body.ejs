@@ -1,5 +1,5 @@
-<div class="row jumbotron justify-content-center flex-column"
-  style="height:130vh;width:inherit;background-color:lightseagreen">
+<div class="row jumbotron justify-content-center flex-column m-2"
+  style="height:auto;width:inherit;background-color:lightseagreen">
   <div class="m-auto d-flex flex-column justify-content-center" style="border: 1px dashed greenyellow">
     <h5 class="m-auto">Your Order Details</h5>
     <div class="m-auto">
@@ -24,35 +24,54 @@
     <span class="float-right"><button class="btn btn-success d-none" onclick="saveaddress()"
         id="saveaddress">Save</button></span>
   </div>
-  <div class="m-auto" style="border: 1px dashed greenyellow">
-    <h5>Choose your Payment Method</h5>
-    <div id="accordion">
+  <div class="m-auto">
+    <h5 class="text-center">Choose your Payment Method</h5>
+    <div id="accordion" style="border: 2px dashed greenyellow">
       <div class="card">
-        <div class="card-header" id="cards" style="background-color: greenyellow">
+        <div class="card-header" id="cards" style="background-color: lightblue">
           <h5>
-            <a href="#collapse1" data-parent="#accordion" data-toggle="collapse">
+            <a href="#collapse1" data-parent="#accordion" data-toggle="collapse" onclick="paycard()">
               Credit/Debit Card <i class="fab fa-cc-visa"></i> <i class="fab fa-cc-mastercard"></i> <i
                 class="fab fa-cc-amex"></i> <i class="fab fa-cc-paypal"></i>
             </a>
             </h6>
         </div>
         <div id="collapse1" class="collapse show">
+          <div class="form-group">
+            <label for="cardnumber" class="font-weight-bold">Card Number</label>
+            <input type="text" class="form-control" minlength="16" maxlength="16" required>
+          </div>
+          <div class="d-flex">
+            <div>
+              <label for="cardexpire" class="font-weight-bold">Expiry</label>
+              <input type="date" class="form-control" min="2015-01-01" max="2030-01-01" value="2020-01-01" required>
+            </div>
+            <div>
+              <label for="cardcvv" class="font-weight-bold">CVV</label>
+              <input type="text" class="form-control" maxlength="3" minlength="3" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="cardname" class="font-weight-bold">Name on Card</label>
+            <input type="text" class="form-control" required>
+          </div>
 
         </div>
       </div>
-
       <div class="card">
-        <div class="card-header" id="paytm" style="background-color:greenyellow">
+        <div class="card-header" id="paytm" style="background-color:lightblue">
           <h5>
-            <a href="#collapse2" data-parent="#accordion" data-toggle="collapse">
+            <a href="#collapse2" data-parent="#accordion" data-toggle="collapse" onclick="paypaytm()">
               Paytm <img src="/images/paytm.png" alt="paytm">
             </a>
           </h5>
         </div>
-
-        <div id="collapse2" class="collapse show">
+        <div id="collapse2" class="collapse">
           <div class="card">
-            dkgjldkjg/ld
+            <div class="form-group">
+              <label for="number" class="font-weight-bold">Your Paytm Linked Number</label>
+              <input type="number" class="form-control">
+            </div>
           </div>
         </div>
       </div>
@@ -60,16 +79,16 @@
 
 
       <div class="card">
-        <div class="card-header" id="accessories" style="background-color:greenyellow">
+        <div class="card-header" id="accessories" style="background-color:lightblue">
           <h5>
-            <a href="#collapse3" data-parent="#accordion" data-toggle="collapse">
-              Cash <i class="far fa-money-bill-alt"></i>
+            <a href="#collapse3" data-parent="#accordion" data-toggle="collapse" onclick="paycash()">
+              Pay On Delivery <i class="far fa-money-bill-alt"></i>
             </a>
           </h5>
         </div>
 
-        <div id="collapse3" class="collapse show">
-
+        <div id="collapse3" class="collapse">
+          <p class="bg-info text-dark m-auto text-center">Exact Change will be appreciated</p>
         </div>
       </div>
     </div>

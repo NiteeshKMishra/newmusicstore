@@ -80,6 +80,7 @@ jQuery('#signupform').on('reset', function (event) {
   jQuery('#username-msg').text('');
   jQuery('#email-msg').text('');
   jQuery('#password-msg').text('');
+  jQuery('#singupform-msg').text('');
 })
 
 
@@ -335,35 +336,38 @@ function promocode() {
     setTimeout(function () {
       jQuery('#promoerr').removeClass('text-danger');
       jQuery('#promoerr').text('')
-    }, 3000);
+    }, 2000);
+  }
+  else if (promo !== 'FIRST10') {
+    jQuery('#promoerr').addClass('text-danger');
+    jQuery('#promoerr').text('Please Enter a valid promocode')
+    setTimeout(function () {
+      jQuery('#promoerr').removeClass('text-danger');
+      jQuery('#promoerr').text('');
+      jQuery('[name=promocode]').val('');
+    }, 2000);
   }
   else if (count === 1) {
     jQuery('#promoerr').addClass('text-danger');
     jQuery('#promoerr').text('you have already used this promocode')
     setTimeout(function () {
       jQuery('#promoerr').removeClass('text-danger');
-      jQuery('#promoerr').text('')
-    }, 3000);
+      jQuery('#promoerr').text('');
+      jQuery('[name=promocode]').val('');
+    }, 2000);
   }
-  else if (promo === 'FIRST10') {
+  else {
     count = 1;
     total = parseInt(orderTotal, 10);
     total = total - (total * 0.10);
-    jQuery('#promoerr').addClass('text-success');
+    jQuery('#promoerr').addClass('text-primary');
     jQuery('#promoerr').text('Promocode Successfully Applied');
     jQuery('#totalpay').text(total);
     setTimeout(function () {
       jQuery('#promoerr').removeClass('text-success');
-      jQuery('#promoerr').text('')
+      jQuery('#promoerr').text('');
       jQuery('[name=promocode]').val('');
-    }, 3000);
-  } else {
-    jQuery('#promoerr').addClass('text-danger');
-    jQuery('#promoerr').text('Please Enter a valid promocode')
-    setTimeout(function () {
-      jQuery('#promoerr').removeClass('text-danger');
-      jQuery('#promoerr').text('')
-    }, 3000);
+    }, 2000);
   }
 }
 
@@ -372,6 +376,22 @@ function promocode() {
 
 function makepayment() {
   window.location.href = '/congratulations'
+}
+
+
+function paycash() {
+  jQuery('#collapse1').removeClass('show');
+  jQuery('#collapse2').removeClass('show');
+}
+
+function paypaytm() {
+  jQuery('#collapse1').removeClass('show');
+  jQuery('#collapse3').removeClass('show');
+}
+
+function paycard() {
+  jQuery('#collapse2').removeClass('show');
+  jQuery('#collapse3').removeClass('show');
 }
 
 socket.on('disconnect', () => {
