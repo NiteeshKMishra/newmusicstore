@@ -198,25 +198,28 @@ jQuery('#communicationform').on('submit', function (event) {
 });
 
 //deletion of items
-var ditems = jQuery('[name=deletebutton]').attr('data');
-ditems = JSON.parse(ditems);
-for (i = 0; i < ditems.length; i++) {
-  jQuery('#' + ditems[i]._id).on('click', function (event) {
-    event.preventDefault();
-    var _id = ditems[i]._id;
-    socket.emit('deletefromcart', { _id }, function (message) {
-      if (message === 'done') {
-        jQuery('#showSuccessMsgButton').click();
-        setTimeout(function () {
+if (window.location.href === 'https://newmusicstore.herokuapp.com/checkout') {
+  var ditems = jQuery('[name=deletebutton]').attr('data');
+  ditems = JSON.parse(ditems);
+  for (i = 0; i < ditems.length; i++) {
+    jQuery('#' + ditems[i]._id).on('click', function (event) {
+      event.preventDefault();
+      var _id = ditems[i]._id;
+      socket.emit('deletefromcart', { _id }, function (message) {
+        if (message === 'done') {
           jQuery('#showSuccessMsgButton').click();
-        }, 2000);
-        window.location.reload();
-      }
-      else {
-        alert('Something went wrong. Please try after sometime');
-      }
-    });
-  })
+          setTimeout(function () {
+            jQuery('#showSuccessMsgButton').click();
+          }, 2000);
+          window.location.reload();
+        }
+        else {
+          alert('Something went wrong. Please try after sometime');
+        }
+      });
+    })
+  }
+
 }
 
 /**Adding to Cart */
@@ -353,6 +356,7 @@ function promocode() {
     setTimeout(function () {
       jQuery('#promoerr').removeClass('text-success');
       jQuery('#promoerr').text('')
+      jQuery('[name=promocode]').val('');
     }, 3000);
   } else {
     jQuery('#promoerr').addClass('text-danger');
@@ -362,6 +366,13 @@ function promocode() {
       jQuery('#promoerr').text('')
     }, 3000);
   }
+}
+
+
+//Make Payment
+
+function makepayment() {
+  window.location.href = '/congratulations'
 }
 
 socket.on('disconnect', () => {

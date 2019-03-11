@@ -39,6 +39,7 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
 var usercartdata;
+var userOrderId;
 /** Socket IO configuration */
 
 var server = http.createServer(app);
@@ -243,6 +244,17 @@ app.get('/aboutus', (req, res) => {
 
 app.get('/payment', (req, res) => {
   res.render('payment.ejs', { user: req.user, data: usercartdata });
+})
+
+app.get('/congratulations', (req, res) => {
+  userOrderId = Math.random() * 100000000
+  userOrderId = 'M' + Math.round(userOrderId);
+  Users.findByIdAndUpdate(req.user._id, { $set: { cart: [] }, $push: { orders: userOrderId } }, { new: true }).then((users, err) => {
+    if (err) {
+      console.log(err);
+    }
+  });
+  res.render('congratulations.ejs', { user: req.user, orderId: userOrderId });
 })
 
 server.listen(PORT, () => {
