@@ -198,13 +198,11 @@ jQuery('#communicationform').on('submit', function (event) {
 });
 
 //deletion of items
-
 var ditems = jQuery('[name=deletebutton]').attr('data');
-if (window.location.href === 'https://newmusicstore.herokuapp.com/checkout' && ditems !== undefined) {
+if (window.location.pathname === "/checkout" && ditems !== undefined) {
   ditems = JSON.parse(ditems);
   for (i = 0; i < ditems.length; i++) {
     jQuery('#' + ditems[i]._id).on('click', function (event) {
-      event.preventDefault();
       var _id = ditems[i]._id;
       socket.emit('deletefromcart', { _id }, function (message) {
         if (message === 'done') {
