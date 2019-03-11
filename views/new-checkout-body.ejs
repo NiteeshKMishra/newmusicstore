@@ -1,8 +1,13 @@
-<div class="row jumbotron justify-content-center" style="height:137vh;width: 105vw;background-color: lightseagreen;">
+<div class="row jumbotron justify-content-center" style="height:auto;width: auto;background-color: lightseagreen;">
   <button class="btn btn-primary d-none" id="showSuccessMsgButton" data-toggle="modal"
     data-target="#successMsgModal">ADD</button>
   <div class="mb-2 col-lg-6">
+    <%if(!isempty){%>
     <h4 class="display-5">Verify your Cart</h4>
+    <%}%>
+    <%if(isempty){%>
+    <h4 class="display-5 text-danger">Your Cart is Empty.</h4>
+    <%}%>
     <table class="table table-striped d-none d-sm-block">
       <thead class="thead-dark" id="carttable">
         <tr>
@@ -15,19 +20,19 @@
       </thead>
       <tbody>
         <%var total=0%>
-        <%var count=0%>
-        <%for(var item of items){%>
-        <%total=total+item.price*item.quantity%>
-        <tr>
-          <td><%=item.name%></td>
-          <th><%=item.quantity%></td>
-          <td><%=item.category%></td>
-          <td><%=item.price*item.quantity%></td>
-          <td><button class="btn btn-danger btn-sm" name="deletebutton" id="<%=item._id%>"
-              data="<%=JSON.stringify(items)%>">Delete</button></td>
-        </tr>
-        <%count=count+1%>
-        <%}%>
+    <%var count=0%>
+    <%for(var item of items){%>
+    <%total=total+item.price*item.quantity%>
+    <tr>
+      <td><%=item.name%></td>
+      <th><%=item.quantity%></td>
+      <td><%=item.category%></td>
+      <td><%=item.price*item.quantity%></td>
+      <td><button class="btn btn-danger btn-sm" name="deletebutton" id="<%=item._id%>"
+          data="<%=JSON.stringify(items)%>">Delete</button></td>
+    </tr>
+    <%count=count+1%>
+    <%}%>
         </tbody>
       </table>
 
@@ -35,29 +40,29 @@
           <thead class="thead-dark" id="carttable">
             <tr>
               <th>Item</th>
-              <th>Quantity</th>
+              <th>Qty</th>
               <th>Price</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
             <%var total=0%>
-        <%var count=0%>
-        <%for(var item of items){%>
-        <%total=total+item.price*item.quantity%>
-        <tr>
-          <td><%=item.name%></td>
-          <th><%=item.quantity%></td>
-          <td><%=item.price*item.quantity%></td>
-          <td><button class="btn btn-danger btn-sm" name="deletebutton" id="<%=item._id%>"
-              data="<%=JSON.stringify(items)%>">Delete</button></td>
-        </tr>
-        <%count=count+1%>
-        <%}%>
+    <%var count=0%>
+    <%for(var item of items){%>
+    <%total=total+item.price*item.quantity%>
+    <tr>
+      <td><%=item.name%></td>
+      <th><%=item.quantity%></td>
+      <td><%=item.price*item.quantity%></td>
+      <td><button class="btn btn-danger btn-sm" name="deletebutton" id="<%=item._id%>"
+          data="<%=JSON.stringify(items)%>">Delete</button></td>
+    </tr>
+    <%count=count+1%>
+    <%}%>
             </tbody>
     </table>
     <p class="font-weight-bold float-left p-2" style="border: 1px solid black">Your Total: <span name="carttotal"><%=total%></span>
-        </p>
+    </p>
   </div>
 
   <div class="col-lg-6 mr-2">
@@ -81,7 +86,9 @@
         <input type="number" name="zipcode" class="form-control" placeholder="Enter your zipcode..." required>
       </div>
       <div>
-        <button class="btn btn-outline-primary" type="submit">Checkout</button>
+        <%if(!isempty){%>
+        <button class="btn btn-primary" type="submit">Checkout</button>
+        <%}%>
         <button class="btn btn-outline-secondary" type="reset">Cancel</button>
       </div>
     </form>

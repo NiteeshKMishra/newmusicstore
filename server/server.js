@@ -209,22 +209,19 @@ app.get('/checkout', (req, res) => {
   var itemArray = [];
   var count = 0;
   Users.findById(req.user._id).then((user, err) => {
-    if (user) {
+    if (user.cart[0] === undefined) {
+      res.render('checkout.ejs', { user: req.user, items: itemArray, isempty: true })
+    }
+    else {
       user.cart.forEach(carts => {
         Items.findById(carts._id).then((items, err) => {
-          if (items) {
-            var quan = carts.quantity
-            items["quantity"] = quan;
-            itemArray.push(items)
-            count = count + 1;
-          } else {
-            itemArray = []
-            count = count + 1;
-          }
+          items["quantity"] = carts.quantity;
+          itemArray.push(items);
+          count = count + 1;
           if (count === user.cart.length) {
-            res.render('checkout.ejs', { user: req.user, items: itemArray })
+            res.render('checkout.ejs', { user: req.user, items: itemArray, isempty: false })
           }
-        })
+        });
       });
     }
   });
